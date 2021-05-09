@@ -1,0 +1,33 @@
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  img {
+    width: 5em;
+    height: 5em;
+    padding: 1em 0 0 2em;
+  }
+}
+
+.loginLogout {
+  padding: 0.5em 2em 0 0;
+  .btn {
+    border: 3px solid red;
+    background-color: white;
+    color: red;
+    font-weight: bold;
+    padding: 1em 2em;
+    border-radius: 5em;
+    font-size: large;
+    cursor: pointer;
+
+    &:hover {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}

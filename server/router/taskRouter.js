@@ -1,11 +1,11 @@
 import express from 'express'
 import { createTask, getTasks, updateTask } from "../controllers/taskController.js";
-import auth from '../middleware/auth.js';
+// import auth from '../middleware/auth.js';
 
 const router = express.Router()
 
-router.get(`/gettasks`, auth, getTasks)
-router.post('/createtask', auth, createTask)
-router.patch('/updatetask/:id', auth, updateTask)
+router.get(`/gettasks`, getTasks)
+router.post('/createtask', createTask)
+router.patch('/updatetask/:id', updateTask)
 
 export default router

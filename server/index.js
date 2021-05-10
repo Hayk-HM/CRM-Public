@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
   console.log('CRM HEROKU');
 })
 
-
 //-------------------------------------------Chat block With Pusher----------------------------------
 
 
@@ -137,16 +136,7 @@ io.on('connect', (socket) => {
 
   socket.on('send_message', (data) => {
     socket.broadcast.to(data.room).emit('receive_message', data)
-
-    //console.log('AAAA------', data);
-    // const dbMessage = {
-    //   message: data.message,
-    //   user: data.user,
-    //   room: data.room
-    // }
-
   })
-
 
   socket.on('disconnect', () => {
     console.log('Client disconnected');

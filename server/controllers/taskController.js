@@ -9,7 +9,6 @@ export const createTask = async (req, res) => {
     const task = await TaskModel.create({ title: taskTitle, description: taskDescription, urgency, creatorId, creatorName, company, companyId: `${company.split(' ').join('').toLowerCase()}`, createdFor })
     res.status(201).json(task)
     console.log("TASK------------", task);
-    //-----------------------------------------turn on----------------------------------------------------
     sendEmail(email)
   } catch (error) {
     res.status(400).json({ message: "Can't create new task" })
@@ -28,8 +27,6 @@ export const getTasks = async (req, res) => {
 export const updateTask = async (req, res) => {
   const { id } = req.params
   const { status, comment } = req.body
-  // console.log("id:", id);
-  //console.log("body:", req.body);
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     const value = { status, comment }

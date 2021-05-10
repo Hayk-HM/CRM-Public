@@ -7,6 +7,7 @@ import './Header.scss'
 const Header = () => {
 
   const history = useHistory()
+  //@ts-ignore
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
   const handlerClickSignIn = () => {

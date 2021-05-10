@@ -4,8 +4,8 @@ import nodemailer from 'nodemailer'
 var transporter = nodemailer.createTransport({
   service: 'mail.ru',
   auth: {
-    user: 'hayk.hv@inbox.ru',
-    pass: '$manv000630'
+    user: 'ava8889@inbox.ru',
+    pass: '$CRM123$'
   }
 });
 

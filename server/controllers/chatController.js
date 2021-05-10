@@ -2,7 +2,6 @@ import ChatSchema from '../models/dbmessages.js'
 
 export const createChat = async (req, res) => {
   const dbMessage = req.body
-  //console.log('LogFromCreateChat', req.body);
   try {
     const newMessage = await ChatSchema.create(dbMessage)
     res.status(201).json(newMessage)

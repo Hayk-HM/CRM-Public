@@ -1,6 +1,6 @@
 import { taskApi } from '../../api/API'
 
-const taskActions = {
+export const taskActions = {
   createTask(formData) { return { type: 'CREATE_TASK', formData } },
   updateTask(formData) { return { type: 'UPDATE_TASK', formData } },
   getTasks(tasks) { return { type: 'GET_TASKS', tasks } },

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import * as Yup from 'yup'
-import { Formik } from "formik"
+import { connect, Formik } from "formik"
 import moment from 'moment'
 import { Close } from '@material-ui/icons'
+import io from 'socket.io-client'
 import {
   Grid,
   Box,
@@ -26,9 +27,13 @@ import {
 } from "@material-ui/core"
 
 import { updateTaskAction } from "./../../../redux/actions/tasksActions"
+import { taskActions } from '../../../redux/actions/tasksActions'
 import AddTaskButton from "./AddTaskButton/AddTaskButton"
 import TaskElement from './TaskElement/TaskElement'
 import useStyles from './Style'
+
+const CONNECTION_URL = 'localhost:5000'
+export let socket;
 
 const Tasks = () => {
 
@@ -36,6 +41,7 @@ const Tasks = () => {
   const classes = useStyles()
   const tasks = useSelector(state => state.tasks)
   const task = useSelector(state => state.tasks.filter(task => task._id === state.updateTaskId.updateTaskId)[0])
+  const user = JSON.parse(localStorage.getItem('profile'))
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -47,6 +53,17 @@ const Tasks = () => {
   const closeTaskBare = () => {
     handleClose()
   }
+
+  useEffect(() => {
+    socket = io(CONNECTION_URL)
+    socket.emit('join_task_room', `Task ${user.result.company}`)
+  }, [user.result.company])
+
+  useEffect(() => {
+    socket.on('receive_task', (data) => {
+      dispatch(taskActions.createTask(data))
+    })
+  }, [])
 
   return (
     <Box container>

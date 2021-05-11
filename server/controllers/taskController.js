@@ -4,12 +4,11 @@ import sendEmail from "../email/email.js";
 
 export const createTask = async (req, res) => {
   const { taskTitle, taskDescription, urgency, creatorId, creatorName, company, createdFor, email } = req.body
-  console.log('BODY---------------', req.body);
   try {
     const task = await TaskModel.create({ title: taskTitle, description: taskDescription, urgency, creatorId, creatorName, company, companyId: `${company.split(' ').join('').toLowerCase()}`, createdFor })
     res.status(201).json(task)
-    console.log("TASK------------", task);
-    sendEmail(email)
+    //-----------------------------------email--------------------
+    //sendEmail(email)
   } catch (error) {
     res.status(400).json({ message: "Can't create new task" })
   }
@@ -31,7 +30,6 @@ export const updateTask = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     const value = { status, comment }
     const updatedTask = await TaskModel.findByIdAndUpdate(id, value, { new: true })
-    console.log(updatedTask);
     res.status(200).json(updatedTask)
   } catch (error) {
     res.status(404).json({ message: `Can't update task///${error}` })

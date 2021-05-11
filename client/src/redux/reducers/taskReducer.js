@@ -5,7 +5,7 @@ const taskReducer = (state = initialState, action) => {
     case 'CREATE_TASK': {
       return [
         ...state,
-        { ...action.formData }
+        action.formData
       ]
     }
     case 'GET_TASKS': {

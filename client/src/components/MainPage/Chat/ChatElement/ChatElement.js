@@ -1,21 +1,16 @@
-import React from 'react'
-import { Grid, Paper } from '@material-ui/core'
+import React, { useState } from 'react'
 
-import useStyles from './Style'
+import './ChatElement.scss'
 
 const ChatElement = ({ name, message }) => {
 
-  const classes = useStyles()
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
   return (
-    <>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2} className={classes.mainGrid}>
-          <Grid item className={classes.innerGrid} > {name} </Grid>
-          <Grid item> {message} </Grid>
-        </Grid>
-      </Paper>
-    </>
+    <div className={`main ${user.result.fullName === name ? 'right' : 'left'}`}>
+      <div className='name'> {name} </div>
+      <div className='message'> {message} </div>
+    </div>
   )
 }
 

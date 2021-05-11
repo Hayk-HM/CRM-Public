@@ -14,7 +14,6 @@ import chatRouter from './router/chatRouter.js'
 
 import Messages from './models/dbmessages.js'
 
-
 dotenv.config()
 const app = express()
 const server = http.createServer(app)
@@ -28,9 +27,6 @@ app.use('/auth', authRouter)
 app.use('/users', usersRouter)
 app.use('/task', taskRouter)
 app.use('/chat', chatRouter)
-app.get('/', (req, res) => {
-  console.log('CRM HEROKU');
-})
 
 //-------------------------------------------Chat block With Pusher----------------------------------
 
@@ -134,6 +130,14 @@ io.on('connect', (socket) => {
     console.log(`User joined room ${data}`);
   })
 
+  socket.on('join_task_room', (data) => {
+    socket.join(data)
+    console.log(`User joined room ${data}`);
+  })
+  socket.on('create_task', (data) => {
+    socket.broadcast.to(`Task ${data.company}`).emit('receive_task', data)
+  })
+
   socket.on('send_message', (data) => {
     socket.broadcast.to(data.room).emit('receive_message', data)
   })
@@ -148,8 +152,8 @@ io.on('connect', (socket) => {
 const CONNECTION_URL = `mongodb+srv://JSProject:Manv159Manv@cluster0.tcdje.mongodb.net/CRM?retryWrites=true&w=majority`;
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => server.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => server.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`)))
   .catch((error) => console.log(`${error} did not connect`));
 
 mongoose.set('useFindAndModify', false);

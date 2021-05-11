@@ -18,6 +18,7 @@ import {
 } from "@material-ui/core"
 
 import { createTaskAction } from '../../../../redux/actions/tasksActions'
+import { socket } from '../Tasks'
 import useStyles from './Style'
 
 const TaskCreateForm = ({ handleClose }) => {
@@ -65,6 +66,17 @@ const TaskCreateForm = ({ handleClose }) => {
                 })
               }
               onSubmit={(values, { resetForm }) => {
+                const fromSocket = {
+                  company: values.company,
+                  creatorName: values.creatorName,
+                  title: values.taskTitle,
+                  description: values.taskDescription,
+                  urgency: values.urgency,
+                  createdFor: values.createdFor,
+                  status: 'Not in progress'
+                }
+
+                socket.emit('create_task', fromSocket)
                 dispatch(createTaskAction(values))
                 closeTaskBare()
                 resetForm({ values: '' })

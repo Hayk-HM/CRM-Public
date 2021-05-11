@@ -5,9 +5,9 @@ import io from 'socket.io-client'
 import { chatActions, getChatAction } from "./../../../redux/actions/chatActions"
 import ChatContainer from './ChatContainer/ChatContainer'
 import InputForm from './InputForm/InputForm'
-import './Style.css'
+import './Chat.scss'
 
-const CONNECTION_PORT = 'localhost:5000'
+const CONNECTION_URL = 'localhost:5000'
 export let socket;
 
 const Chat = () => {
@@ -16,7 +16,7 @@ const Chat = () => {
   const user = JSON.parse(localStorage.getItem('profile'))
 
   useEffect(() => {
-    socket = io(CONNECTION_PORT)
+    socket = io(CONNECTION_URL)
     socket.emit('join_room', user.result.company)
   }, [user.result.company])
 

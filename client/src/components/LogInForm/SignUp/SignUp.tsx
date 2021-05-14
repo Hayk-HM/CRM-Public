@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Helmet } from 'react-helmet'
 import { Link as RouterLink, Link } from 'react-router-dom';
 import { Formik } from "formik";
 import { useHistory } from "react-router-dom"
@@ -17,26 +16,37 @@ import {
 
 import { signUpAction } from "../../../redux/actions/authActions"
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
 
+  type MyFormValues = {
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+    confirmPassword: string,
+    company: string,
+    policy: boolean,
+
+  }
+
+  const initialValues: MyFormValues = {
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    confirmPassword: '',
+    company: '',
+    policy: false,
+  }
+
   return (
-
     <Container component="main" maxWidth="xs">
-
-      <Helmet> <title>Create new Company</title> </Helmet>
-
       <Formik
         enableReinitialize
-        initialValues={{
-          email: '',
-          firstName: '',
-          lastName: '',
-          password: '',
-          policy: false,
-        }}
+        initialValues={initialValues}
         validationSchema={
           Yup.object().shape({
             email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
@@ -48,7 +58,7 @@ const SignUp = () => {
             policy: Yup.boolean().oneOf([true], 'This field must be checked')
           })
         }
-        onSubmit={(values) => {
+        onSubmit={(values: MyFormValues) => {
           dispatch(signUpAction(values, history))
         }}
       >
@@ -56,10 +66,8 @@ const SignUp = () => {
           ({ errors, handleBlur, handleChange, isSubmitting, touched, values, handleSubmit }) => (
 
             <form onSubmit={handleSubmit}>
-              <Box sx={{ mb: 3 }}>
-                <Typography color="textPrimary" variant="h2" align='center'> Create new company </Typography>
-                <Typography color="textSecondary" gutterBottom variant="body2" align='center'> Use your email to create new account</Typography>
-              </Box>
+              <Typography color="textPrimary" variant="h2" align='center'> Create new company </Typography>
+              <Typography color="textSecondary" gutterBottom variant="body2" align='center'> Use your email to create new account</Typography>
               <TextField
                 error={Boolean(touched.firstName && errors.firstName)}
                 fullWidth
@@ -136,26 +144,22 @@ const SignUp = () => {
                 value={values.confirmPassword}
                 variant="outlined"
               />
-              <Box sx={{ alignItems: 'center', display: 'flex', ml: -1 }} >
-                <Checkbox checked={values.policy} name="policy" onChange={handleChange} />
-                <Typography color="textSecondary" variant="body1" >
-                  I have read the
+              <Checkbox checked={values.policy} name="policy" onChange={handleChange} />
+              <Typography color="textSecondary" variant="body1" >
+                I have read the
                     {' '}
-                  <Link color="primary" component={RouterLink} to="#" underline="always" variant="body1" >
-                    Terms and Conditions
+                <Link color="primary" component={RouterLink} to="#"  >
+                  Terms and Conditions
                     </Link>
-                </Typography>
-              </Box>
+              </Typography>
               {Boolean(touched.policy && errors.policy) && (
                 <FormHelperText error>
                   {errors.policy}
                 </FormHelperText>
               )}
-              <Box sx={{ py: 2 }}>
-                <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
-                  Sign up now
+              <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
+                Sign up now
                 </Button>
-              </Box>
             </form>
           )}
       </Formik>

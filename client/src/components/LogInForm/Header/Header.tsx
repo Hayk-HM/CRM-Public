@@ -4,19 +4,12 @@ import { Link, useHistory } from 'react-router-dom'
 import logo from '../../images/logo.png'
 import './Header.scss'
 
-const Header = () => {
+const Header: React.FC = () => {
 
   const history = useHistory()
-  //@ts-ignore
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
-  const handlerClickSignIn = () => {
+  const handlerClickSignIn = (): void => {
     history.push('/home/signin')
-  }
-
-  const handlerClickLogOut = () => {
-    localStorage.removeItem('profile')
-    history.push('/home')
   }
 
   return (
@@ -28,9 +21,7 @@ const Header = () => {
       </div>
       <div className='loginLogout'>
         {
-          !user?.token
-            ? <button className='btn' onClick={handlerClickSignIn}> Sign in </button>
-            : <button className='btn' onClick={handlerClickLogOut}> Log Out </button>
+          <button className='btn' onClick={handlerClickSignIn}> Sign in </button>
         }
       </div>
     </div>

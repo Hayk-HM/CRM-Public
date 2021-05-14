@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Helmet } from 'react-helmet'
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import {
@@ -15,40 +14,43 @@ import {
 
 import { signinAction } from "../../../redux/actions/authActions";
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
 
+  type MyFormValues = {
+    email: string | undefined,
+    password: string | undefined,
+    policy?: boolean | undefined
+  }
+
+  const initialValues: MyFormValues = {
+    email: "",
+    password: ""
+  }
+
   return (
     <Container maxWidth="xs" component='main' >
-
-      <Helmet> <title>Log in</title> </Helmet>
-
       <Formik
         enableReinitialize
-        initialValues={{
-          email: '',
-          password: '',
-        }}
+        initialValues={initialValues}
         validationSchema={
           Yup.object().shape({
             email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
             password: Yup.string().max(255).required('password is required'),
           })
         }
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={(values: MyFormValues, { resetForm }) => {
           dispatch(signinAction(values, history))
-          resetForm({ values: '' })
+          resetForm()
         }}
       >
         {
-          ({ errors, handleBlur, handleChange, isSubmitting, touched, values, handleSubmit }) => (
+          ({ errors, handleBlur, handleChange, isSubmitting, touched, values, handleSubmit, resetForm }) => (
 
             <form onSubmit={handleSubmit}>
-              <Box sx={{ mb: 3 }}>
-                <Typography color="textPrimary" variant="h2" align='center' > Log In </Typography>
-              </Box>
+              <Typography color="textPrimary" variant="h2" align='center' > Log In </Typography>
               <TextField
                 error={Boolean(touched.email && errors.email)}
                 fullWidth
@@ -80,11 +82,9 @@ const SignIn = () => {
                   <FormHelperText error> {errors.policy} </FormHelperText>
                 )
               }
-              <Box sx={{ py: 2 }}>
-                <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
-                  Sign up now
+              <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
+                Sign up now
                 </Button>
-              </Box>
             </form>
           )}
       </Formik>

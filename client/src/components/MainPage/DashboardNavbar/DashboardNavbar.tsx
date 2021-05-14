@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Dispatch } from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from 'jwt-decode';
@@ -11,9 +11,9 @@ import {
   IconButton
 } from "@material-ui/core";
 
-import { getTasksAction } from "./../../../redux/actions/tasksActions";
+import { getTasksAction } from "../../../redux/actions/tasksActions";
 import { getUsersAction } from '../../../redux/actions/userActions';
-import { authActions } from "./../../../redux/actions/authActions";
+import { authActions } from "../../../redux/actions/authActions";
 import logo from '../../images/logo.png'
 import useStyles from './Style'
 
@@ -22,44 +22,46 @@ const DashboardNavbar = () => {
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
+  //@ts-ignore
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
   const location = useLocation();
 
-  const handelLogo = () => {
+  const handelLogo = (): void => {
     history.push(`/main/${user.result.company.split(' ').join('').toLowerCase()}`)
   }
 
-  const handelLogoutButton = () => {
+  const handelLogoutButton = (): void => {
     localStorage.removeItem('profile')
     dispatch(authActions.logout())
     history.push('/home')
   }
 
-  const logout = () => {
+  const logout = (): void => {
     dispatch(authActions.logout())
     // history.push('/');
     // setUser(null);
   };
 
-  useEffect(() => {
-    return dispatch(authActions.signIn(user))
+  useEffect((): void => {
+    dispatch(authActions.signIn(user))
   })
 
   useEffect(() => {
     const token = user?.token;
     if (token) {
-      const decodedToken = decode(token);
+      const decodedToken: any = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
+    //@ts-ignore
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location, user?.token]);
 
-  useEffect(() => {
-    return dispatch(getUsersAction(user?.result?.company))
+  useEffect((): void => {
+    dispatch(getUsersAction(user?.result?.company))
   })
 
-  useEffect(() => {
-    return dispatch(getTasksAction(user?.result?.company))
+  useEffect((): void => {
+    dispatch(getTasksAction(user?.result?.company))
   })
 
   return (

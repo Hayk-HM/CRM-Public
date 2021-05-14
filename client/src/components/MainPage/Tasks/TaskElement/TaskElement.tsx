@@ -12,17 +12,28 @@ import { updateTaskAction } from '../../../../redux/actions/updateTask'
 import logo from '../../../images/logo.png'
 import makeStyles from './Style'
 
-const TaskElement = ({ creator, title, description, urgency, status, createdFor, id, handleToggle }) => {
+type PropsType = {
+  creator: string
+  title: string
+  description: string
+  urgency: string
+  status: string
+  createdFor: string
+  id: string
+  handleToggle: () => void
+}
+
+const TaskElement: React.FC<PropsType> = ({ creator, title, description, urgency, status, createdFor, id, handleToggle }) => {
 
   const classes = makeStyles()
   const dispatch = useDispatch()
 
-  const onHandelClick = () => {
+  const onHandelClick = (): void => {
     dispatch(updateTaskAction.updateTaskId(id))
   }
 
   return (
-    <TableBody className={classes.tableContainer} onClick={onHandelClick}>
+    <TableBody onClick={onHandelClick}>
       <TableRow hover onClick={handleToggle}>
         <TableCell>
           <Avatar alt={creator} src={logo} className={classes.large} />

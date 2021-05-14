@@ -14,15 +14,18 @@ import {
   TableContainer
 } from "@material-ui/core"
 
+import { AppStateType } from '../../../redux/store/store'
+import './Employees.scss'
+
 const Employees = () => {
 
-  const users = useSelector(store => store.users)
+  const users = useSelector((store: AppStateType) => store.users)
 
   return (
-    <Box container>
-      <Grid element align='center'>
+    <div>
+      <div className='addButton'>
         <AddEmployeeButton />
-      </Grid>
+      </div>
       <Grid>
         <Card>
           <PerfectScrollbar>
@@ -55,7 +58,7 @@ const Employees = () => {
           </PerfectScrollbar>
         </Card>
       </Grid>
-    </Box>
+    </div>
   )
 }
 

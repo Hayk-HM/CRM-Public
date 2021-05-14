@@ -2,7 +2,7 @@ import React from 'react'
 
 import './Style.scss'
 
-const InfoList = () => {
+const InfoList: React.FC = () => {
 
   return (
     <div className='description'>

@@ -8,16 +8,16 @@ import {
 
 import useStyles from './Style'
 
-const RegistrationSuccess = () => {
+const RegistrationSuccess: React.FC = () => {
 
   const classes = useStyles()
   const history = useHistory()
 
-  const handelRegistration = () => {
+  const handelRegistration = (): void => {
     history.push('/main/register')
   }
 
-  const handelTask = () => {
+  const handelTask = (): void => {
     history.push('/main/task')
   }
 

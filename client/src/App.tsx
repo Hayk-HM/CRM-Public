@@ -5,8 +5,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import Dashboard from "./components/MainPage/Dashboard";
 
-const App = () => {
+const App: React.FC = () => {
 
+  //@ts-ignore
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
   // useEffect(() => {

@@ -29,14 +29,15 @@ import Task from '../Tasks/Tasks'
 import Chat from '../Chat/Chat'
 import useStyles from './Style'
 
-const DashboardSidebar = () => {
+const DashboardSidebar: React.FC = () => {
 
   const classes = useStyles()
   const history = useHistory()
 
-  const icons = [TaskIcon, ChatIcon, EmployeesIcon, AccountIcon, RegisterIcon, SettingsIcon]
-  const settingField = ['Task', 'Chat', 'Employees', 'Register']
+  const icons: JSX.Element[] = [TaskIcon, ChatIcon, EmployeesIcon, AccountIcon, RegisterIcon, SettingsIcon]
+  const settingField: string[] = ['Task', 'Chat', 'Employees', 'Register']
 
+  //@ts-ignore
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
   return (
@@ -83,7 +84,7 @@ const DashboardSidebar = () => {
         </Switch>
       </main>
     </div >
-  );
+  )
 }
 
 export default DashboardSidebar

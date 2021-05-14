@@ -9,7 +9,7 @@ import {
   FormHelperText
 } from "@material-ui/core";
 
-import { createChatAction } from "./../../../../redux/actions/chatActions";
+import { createChatAction } from "../../../../redux/actions/chatActions";
 import { socket } from '../Chat'
 import useStyles from './Style'
 
@@ -18,14 +18,22 @@ const InputForm = () => {
 
   const dispatch = useDispatch()
   const classes = useStyles()
+  //@ts-ignore
   const user = JSON.parse(localStorage.getItem('profile'))
+
+  type MyFormValues = {
+    message: string
+    policy?: boolean
+  }
+
+  const initialValues: MyFormValues = {
+    message: '',
+  }
 
   return (
     <Formik
       enableReinitialize
-      initialValues={{
-        message: '',
-      }}
+      initialValues={initialValues}
       validationSchema={
         Yup.object().shape({
           message: Yup.string().max(255).required('Message is required'),
@@ -39,8 +47,7 @@ const InputForm = () => {
         }
         socket.emit('send_message', messageData)
         dispatch(createChatAction(messageData))
-
-        resetForm({ values: '' })
+        resetForm()
       }}
     >
       {
@@ -63,9 +70,9 @@ const InputForm = () => {
             {Boolean(touched.policy && errors.policy) && (
               <FormHelperText error> {errors.policy} </FormHelperText>
             )}
-            <Box sx={{ py: 2 }}>
-              <Button color="primary" fullWidth size="large" type="submit" variant="contained"> Send </Button>
-            </Box>
+            <div>
+              <Button className={classes.button} color="primary" fullWidth size="large" type="submit" variant="contained"> Send </Button>
+            </div>
           </form>
         )}
     </Formik>

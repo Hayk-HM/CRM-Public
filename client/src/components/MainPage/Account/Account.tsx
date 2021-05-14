@@ -2,6 +2,7 @@ import React from 'react'
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
+//@ts-ignore
 import { Helmet } from 'react-helmet'
 import {
   Grid,
@@ -18,18 +19,33 @@ import { updateUserAction } from '../../../redux/actions/userActions';
 import useStyles from './Style'
 
 
-const Account = () => {
+const Account: React.FC = () => {
 
+  //@ts-ignore
   const user = JSON.parse(localStorage.getItem('profile'))
   const classes = useStyles();
   const dispatch = useDispatch()
 
+  type MyFormValues = {
+    email: string
+    firstName: string
+    lastName: string
+    company: string
+    policy?: boolean
+  }
+  const initialValues: MyFormValues = {
+    email: String(user?.result?.email),
+    firstName: String(user?.result?.firstName),
+    lastName: String(user?.result?.lastName),
+    company: String(user?.result?.company),
+  }
 
   return (
     <div className={classes.root}>
-
-      <Helmet> <title>Account</title> </Helmet>
-
+      {
+        //@ts-ignore
+        <Helmet> <title>Account</title> </Helmet>
+      }
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
@@ -39,13 +55,7 @@ const Account = () => {
           </Grid>
           <Formik
             enableReinitialize
-            initialValues={{
-              email: String(user?.result?.email),
-              firstName: String(user?.result?.firstName),
-              lastName: String(user?.result?.lastName),
-              company: String(user?.result?.company),
-
-            }}
+            initialValues={initialValues}
             validationSchema={
               Yup.object().shape({
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
@@ -119,11 +129,9 @@ const Account = () => {
                   {Boolean(touched.policy && errors.policy) && (
                     <FormHelperText error> {errors.policy} </FormHelperText>
                   )}
-                  <Box sx={{ py: 2 }}>
-                    <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
-                      Update
+                  <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
+                    Update
                     </Button>
-                  </Box>
                 </form>
               )}
           </Formik>

@@ -10,12 +10,21 @@ import {
 import logo from '../../../images/logo.png'
 import makeStyles from './Style'
 
-const Employee = ({ photo, fullName, email, location, phone, store }) => {
+type PropsType = {
+  photo: string
+  fullName: string
+  email: string
+  location: string
+  phone: string
+  store: string
+}
+
+const Employee: React.FC<PropsType> = ({ photo, fullName, email, location, phone, store }) => {
 
   const classes = makeStyles()
 
   return (
-    <TableBody className={classes.tableContainer}>
+    <TableBody>
       <TableRow hover>
         <TableCell>
           <Avatar alt="Remy Sharp" src={logo} className={classes.large} />

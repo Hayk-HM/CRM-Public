@@ -9,15 +9,15 @@ import {
 import TaskCreateForm from "../TaskCreateForm/TaskCreateForm"
 import useStyles from './Style'
 
-const AddTaskButton = () => {
+const AddTaskButton: React.FC = () => {
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setOpen(false);
   };
-  const handelAddTask = () => {
+  const handelAddTask = (): void => {
     setOpen(!open);
     //console.log("Add new Task");
   }

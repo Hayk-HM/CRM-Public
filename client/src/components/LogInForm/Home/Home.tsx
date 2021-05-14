@@ -7,7 +7,7 @@ import InfoList from "../InfoList/InfoList";
 import Header from "../Header/Header";
 
 
-const Home = () => {
+const Home: React.FC = () => {
 
   return (
     <div className='mainInfoBar'>

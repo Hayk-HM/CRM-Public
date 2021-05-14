@@ -1,18 +1,39 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from "react-redux";
-import io from 'socket.io-client'
+import io, { Socket } from 'socket.io-client'
 
-import { chatActions, getChatAction } from "./../../../redux/actions/chatActions"
+import { chatActions, getChatAction } from "../../../redux/actions/chatActions"
 import ChatContainer from './ChatContainer/ChatContainer'
 import InputForm from './InputForm/InputForm'
 import './Chat.scss'
 
 const CONNECTION_URL = 'localhost:5000'
-export let socket;
+export let socket: typeof Socket;
+type ReceiveMessageType = {
+  _id: string
+  room: string
+  user: {
+    createdAt: string
+    updatedAt: string
+    isAdmin: boolean
+    _id: string
+    firstName: string
+    lastName: string
+    fullName: string
+    email: string
+    company: string
+    companyId: string
+    password: string
+    __v: number
+  }
+  message: string
+  __v: number
+}
 
 const Chat = () => {
 
   const dispatch = useDispatch()
+  //@ts-ignore
   const user = JSON.parse(localStorage.getItem('profile'))
 
   useEffect(() => {
@@ -21,7 +42,7 @@ const Chat = () => {
   }, [user.result.company])
 
   useEffect(() => {
-    socket.on('receive_message', (data) => {
+    socket.on('receive_message', (data: ReceiveMessageType) => {
       dispatch(chatActions.createChat(data))
     })
   })

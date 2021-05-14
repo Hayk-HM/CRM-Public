@@ -13,7 +13,7 @@ const AddEmployeeButton = () => {
   const classes = useStyles()
   const history = useHistory()
 
-  const handelAddEmployee = () => {
+  const handelAddEmployee = (): void => {
     history.push('/main/register')
   }
 

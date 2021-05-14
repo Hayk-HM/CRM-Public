@@ -3,7 +3,7 @@ import React from 'react'
 import DashboardSidebar from "./DashboardSidebar/DashboardSidebar";
 import DashboardNavbar from './DashboardNavbar/DashboardNavbar';
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   return (
     <div>
       <div className='dashboardNavbar'>

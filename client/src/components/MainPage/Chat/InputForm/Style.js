@@ -5,6 +5,9 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '50vh'
   },
+  button: {
+    width: theme.spacing(70)
+  }
 }))
 
 export default useStyles

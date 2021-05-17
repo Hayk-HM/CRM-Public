@@ -26,14 +26,14 @@ const Account: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
 
-  type MyFormValues = {
+  type MyFormType = {
     email: string
     firstName: string
     lastName: string
     company: string
     policy?: boolean
   }
-  const initialValues: MyFormValues = {
+  const initialValues: MyFormType = {
     email: String(user?.result?.email),
     firstName: String(user?.result?.firstName),
     lastName: String(user?.result?.lastName),

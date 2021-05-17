@@ -7,8 +7,7 @@ import Dashboard from "./components/MainPage/Dashboard";
 
 const App: React.FC = () => {
 
-  //@ts-ignore
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile') || '[]'))
 
   // useEffect(() => {
   //   const pusher = new Pusher('8d7a83069c1d1e1f1384', {

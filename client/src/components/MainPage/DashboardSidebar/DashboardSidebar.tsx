@@ -37,8 +37,7 @@ const DashboardSidebar: React.FC = () => {
   const icons: JSX.Element[] = [TaskIcon, ChatIcon, EmployeesIcon, AccountIcon, RegisterIcon, SettingsIcon]
   const settingField: string[] = ['Task', 'Chat', 'Employees', 'Register']
 
-  //@ts-ignore
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile') || '[]'))
 
   return (
     <div className={classes.root}>

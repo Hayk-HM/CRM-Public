@@ -10,6 +10,15 @@ const usersReducer = (state = initialState, action) => {
     case 'LOGOUT': {
       return []
     }
+    case 'UPDATE_USER': {
+      return {
+        ...state,
+        result: {
+          ...state.result,
+          ...action.updatedInfo
+        }
+      }
+    }
     default:
       return [
         ...state

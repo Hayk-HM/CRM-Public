@@ -30,8 +30,8 @@ const TaskCreateForm: React.FC<PropsType> = ({ handleClose }) => {
 
   const classes = useStyles()
   const dispatch = useDispatch()
-  //@ts-ignore
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile') || '[]'))
   const users = useSelector((state: AppStateType) => state.users)
 
   const closeTaskBare = () => {

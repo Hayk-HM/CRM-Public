@@ -14,18 +14,18 @@ import {
 
 import { signinAction } from "../../../redux/actions/authActions";
 
+export type MyFormTypeSignIn = {
+  email: string | undefined,
+  password: string | undefined,
+  policy?: boolean | undefined
+}
+
 const SignIn: React.FC = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
 
-  type MyFormValues = {
-    email: string | undefined,
-    password: string | undefined,
-    policy?: boolean | undefined
-  }
-
-  const initialValues: MyFormValues = {
+  const initialValues: MyFormTypeSignIn = {
     email: "",
     password: ""
   }
@@ -41,7 +41,7 @@ const SignIn: React.FC = () => {
             password: Yup.string().max(255).required('password is required'),
           })
         }
-        onSubmit={(values: MyFormValues, { resetForm }) => {
+        onSubmit={(values, { resetForm }) => {
           dispatch(signinAction(values, history))
           resetForm()
         }}

@@ -42,8 +42,8 @@ const Tasks: React.FC = () => {
   const classes = useStyles()
   const tasks = useSelector((state: AppStateType) => state.tasks)
   const task = useSelector((state: AppStateType) => state.tasks.filter(task => task._id === state.updateTaskId.updateTaskId)[0])
-  //@ts-ignore
-  const user = JSON.parse(localStorage.getItem('profile'))
+
+  const user = JSON.parse(localStorage.getItem('profile') || '[]')
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {

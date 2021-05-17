@@ -21,12 +21,12 @@ const InputForm = () => {
   //@ts-ignore
   const user = JSON.parse(localStorage.getItem('profile'))
 
-  type MyFormValues = {
+  type MyFormType = {
     message: string
     policy?: boolean
   }
 
-  const initialValues: MyFormValues = {
+  const initialValues: MyFormType = {
     message: '',
   }
 

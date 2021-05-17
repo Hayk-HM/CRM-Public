@@ -19,6 +19,16 @@ import {
 
 import { signupEmployeeAction } from "../../../redux/actions/authActions";
 
+export type MyFormTypeEmployees = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+  confirmPassword: string
+  policy?: boolean
+  company?: string
+}
+
 const Register: React.FC = () => {
 
   const dispatch = useDispatch()
@@ -27,16 +37,7 @@ const Register: React.FC = () => {
   //@ts-ignore
   const userCompany = JSON.parse(localStorage.getItem('profile')).result.company
 
-  type MyFormType = {
-    email: string
-    firstName: string
-    lastName: string
-    password: string
-    confirmPassword: string
-    policy: boolean
-  }
-
-  const initialValues: MyFormType = {
+  const initialValues: MyFormTypeEmployees = {
     email: '',
     firstName: '',
     lastName: '',

@@ -16,23 +16,22 @@ import {
 
 import { signUpAction } from "../../../redux/actions/authActions"
 
+export type MyFormTypeSignUp = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+  confirmPassword: string
+  company: string
+  policy?: boolean
+}
+
 const SignUp: React.FC = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
 
-  type MyFormValues = {
-    email: string,
-    firstName: string,
-    lastName: string,
-    password: string,
-    confirmPassword: string,
-    company: string,
-    policy: boolean,
-
-  }
-
-  const initialValues: MyFormValues = {
+  const initialValues: MyFormTypeSignUp = {
     email: '',
     firstName: '',
     lastName: '',
@@ -58,7 +57,7 @@ const SignUp: React.FC = () => {
             policy: Yup.boolean().oneOf([true], 'This field must be checked')
           })
         }
-        onSubmit={(values: MyFormValues) => {
+        onSubmit={(values) => {
           dispatch(signUpAction(values, history))
         }}
       >

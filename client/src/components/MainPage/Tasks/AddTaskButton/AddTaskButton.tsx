@@ -12,7 +12,7 @@ import useStyles from './Style'
 const AddTaskButton: React.FC = () => {
 
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleClose = (): void => {
     setOpen(false);

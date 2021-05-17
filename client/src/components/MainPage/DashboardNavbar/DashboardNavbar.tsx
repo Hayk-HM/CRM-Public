@@ -22,8 +22,8 @@ const DashboardNavbar = () => {
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
-  //@ts-ignore
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile') || '[]'))
   const location = useLocation();
 
   const handelLogo = (): void => {

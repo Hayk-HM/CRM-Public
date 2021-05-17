@@ -10,8 +10,7 @@ type PropsType = {
 
 const ChatElement: React.FC<PropsType> = ({ name, message }) => {
 
-  // @ts-ignore
-  const localStor: LocalStorageType = JSON.parse(localStorage.getItem('profile'))
+  const localStor: LocalStorageType = JSON.parse(localStorage.getItem('profile') || '[]')
   const [user, setUser] = useState(localStor)
 
   return (
